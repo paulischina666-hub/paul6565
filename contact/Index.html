@@ -1,1 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | SafeBabyBath</title>
 
+<style>
+body{
+font-family: Arial, sans-serif;
+background:#f8f9fb;
+padding:40px;
+}
+
+.container{
+max-width:600px;
+margin:auto;
+background:white;
+padding:35px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+h1{
+margin-bottom:10px;
+}
+
+p{
+color:#666;
+margin-bottom:25px;
+}
+
+input, textarea{
+width:100%;
+padding:12px;
+margin-bottom:18px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:14px;
+}
+
+button{
+width:100%;
+padding:14px;
+background:#111;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#333;
+}
+
+.back{
+margin-top:20px;
+display:inline-block;
+color:#111;
+text-decoration:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Contact Us</h1>
+<p>Have a question about your order? Send us a message and our support team will reply within 24–48 hours.</p >
+
+<form action="https://formspree.io/f/xpqylkqw" method="POST">
+
+<input type="text" name="name" placeholder="Your Name" required>
+
+<input type="email" name="email" placeholder="Your Email" required>
+
+<textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+
+<button type="submit">Send Message</button>
+
+</form>
+
+<a class="back" href=" ">← Back to Home</a >
+
+</div>
+
+</body>
+</html>
