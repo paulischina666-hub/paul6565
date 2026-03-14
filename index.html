@@ -1,276 +1,240 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>safe Baby Bath </title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+<style>
+    .logo img {
+      height: 100px;
+    }
+  </style>
 
-<title>SafeBabyBath</title>
-
-<link rel="icon" type="image/png" href="/favicon.png">
-
+</head>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 *{box-sizing:border-box;margin:0;padding:0}
 
 body{
-font-family:'Inter',sans-serif;
-background:#fff;
-color:#111;
+  font-family:'Inter',sans-serif;
+  background:#fff;
+  color:#111;
 }
 
-/* Announcement */
-
+/* Announcement Bar */
 .announcement{
-background:#111;
-color:white;
-text-align:center;
-padding:10px;
-font-size:14px;
+  background:#111;
+  color:white;
+  text-align:center;
+  padding:10px;
+  font-size:14px;
 }
 
 /* Header */
-
 .header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 40px;
-border-bottom:1px solid #eee;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 40px;
+  border-bottom:1px solid #eee;
 }
 
-.logo img{
-height:60px;
+.logo{
+  font-weight:700;
+  font-size:20px;
 }
 
 .nav a{
-text-decoration:none;
-color:#111;
-margin-left:20px;
-font-size:14px;
-}
-
-/* HERO */
-
-.hero{
-background:#f7f7f7;
-padding:80px 20px;
-}
-
-.hero-container{
-max-width:1100px;
-margin:auto;
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:50px;
-flex-wrap:wrap;
-}
-
-.hero-text{
-flex:1;
-min-width:300px;
-}
-
-.hero-text h1{
-font-size:40px;
-margin-bottom:20px;
-}
-
-.hero-text p{
-font-size:18px;
-color:#555;
-margin-bottom:25px;
-}
-
-.hero-image{
-flex:1;
-min-width:300px;
-}
-
-.hero-image img{
-width:100%;
-border-radius:14px;
-box-shadow:0 15px 40px rgba(0,0,0,0.1);
-}
-
-.hero-btn{
-background:#111;
-color:white;
-padding:16px 28px;
-text-decoration:none;
-border-radius:8px;
-font-weight:600;
+  text-decoration:none;
+  color:#111;
+  margin-left:20px;
+  font-size:14px;
 }
 
 /* Container */
-
 .container{
-max-width:1100px;
-margin:auto;
-padding:60px 20px;
+  max-width:1100px;
+  margin:auto;
+  padding:60px 20px;
 }
 
 .product-wrapper{
-display:flex;
-gap:60px;
-flex-wrap:wrap;
+  display:flex;
+  gap:60px;
+  flex-wrap:wrap;
 }
 
-/* Images */
-
+/* Image Section */
 .product-image{
-flex:1;
-min-width:300px;
+  flex:1;
+  min-width:300px;
 }
 
 .main-img{
-width:100%;
-border-radius:14px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
+  width:100%;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.05);
 }
 
 .thumbnail-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-margin-top:15px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:15px;
 }
 
 .thumb{
-width:100%;
-height:90px;
-object-fit:cover;
-border-radius:10px;
-cursor:pointer;
-border:2px solid transparent;
+  width:100%;
+  height:90px;
+  object-fit:cover;
+  border-radius:10px;
+  cursor:pointer;
+  border:2px solid transparent;
+  transition:0.3s;
 }
 
 .thumb:hover{
-border:2px solid #111;
+  border:2px solid #111;
 }
 
 .thumb.active{
-border:2px solid #111;
+  border:2px solid #111;
 }
 
 /* Product Info */
-
 .product-info{
-flex:1;
-min-width:300px;
+  flex:1;
+  min-width:300px;
 }
 
 .rating{
-font-size:14px;
-color:#777;
-margin-bottom:10px;
+  font-size:14px;
+  color:#777;
+  margin-bottom:10px;
 }
 
 .title{
-font-size:32px;
-font-weight:700;
-margin-bottom:15px;
+  font-size:32px;
+  font-weight:700;
+  margin-bottom:15px;
 }
 
 .price{
-font-size:28px;
-font-weight:700;
-margin-bottom:10px;
+  font-size:28px;
+  font-weight:700;
+  margin-bottom:20px;
 }
 
 .old-price{
-text-decoration:line-through;
-color:#999;
-margin-right:10px;
-}
-
-.stock{
-color:#e63946;
-font-weight:600;
-margin-bottom:10px;
+  text-decoration:line-through;
+  color:#999;
+  font-weight:400;
+  margin-right:10px;
 }
 
 .benefits{
-margin:20px 0;
-padding-left:18px;
+  margin:25px 0;
+  padding-left:18px;
 }
 
 .benefits li{
-margin-bottom:10px;
+  margin-bottom:12px;
 }
 
 .buy-btn{
-width:100%;
-background:#111;
-color:white;
-padding:16px;
-font-size:16px;
-border:none;
-border-radius:8px;
-cursor:pointer;
+  width:100%;
+  background:#111;
+  color:white;
+  padding:16px;
+  font-size:16px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
 .buy-btn:hover{
-background:#333;
+  background:#333;
 }
 
-/* Trust */
-
 .trust{
-margin-top:20px;
-font-size:14px;
-color:#666;
-text-align:center;
+  margin-top:20px;
+  font-size:14px;
+  color:#666;
+}
+
+/* Why Section */
+.section{
+  padding:80px 20px;
+  border-top:1px solid #eee;
+  text-align:center;
+}
+
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:40px;
+  max-width:1000px;
+  margin:50px auto 0 auto;
 }
 
 /* Footer */
-
 .footer{
-background:#111;
-color:white;
-padding:50px 20px;
-margin-top:80px;
+  background:#111;
+  color:white;
+  padding:50px 20px;
+  margin-top:80px;
 }
 
 .footer-container{
-max-width:1100px;
-margin:auto;
-display:flex;
-justify-content:space-between;
-flex-wrap:wrap;
-gap:30px;
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:30px;
+}
+
+.footer h4{
+  margin-bottom:15px;
 }
 
 .footer a{
-display:block;
-color:#ccc;
-text-decoration:none;
-margin-bottom:8px;
-font-size:14px;
+  display:block;
+  color:#ccc;
+  text-decoration:none;
+  margin-bottom:8px;
+  font-size:14px;
 }
 
-/* Sticky Buy Bar */
+.footer a:hover{
+  color:white;
+}
 
+/* Sticky Bar */
 .sticky-bar{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-border-top:1px solid #ddd;
-padding:12px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:white;
+  border-top:1px solid #ddd;
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.sticky-price{
+  font-weight:600;
 }
 
 @media(max-width:768px){
-.product-wrapper{flex-direction:column}
+  .product-wrapper{flex-direction:column}
+  .header{padding:20px}
 }
-
 </style>
 </head>
 
@@ -280,196 +244,117 @@ align-items:center;
 🚚 Free 3–5 Day U.S. Shipping • 30-Day Money Back Guarantee
 </div>
 
-<!-- HEADER -->
-
 <div class="header">
-
-<div class="logo">
-<a href=" ">
-<img src="/logo.png" alt="SafeBabyBath">
-</a >
+  <div class="logo">
+  <a href=" ">
+    <img src="/logo.png" alt="SafeBabyBath Logo">
+  </a >
 </div>
-
-<div class="nav">
-<a href="/">Home</a >
-<a href="/contact">Contact</a >
-<a href="/track">Track Order</a >
+  <div class="nav">
+    <a href=" ">Home</a >
+    <a href="/contact">Contact</a >
+    <a href="track">Track Order</a >
+  </div>
 </div>
-
-</div>
-
-<!-- HERO -->
-
-<div class="hero">
-
-<div class="hero-container">
-
-<div class="hero-text">
-
-<h1>Make Baby Bath Time Safe & Stress-Free</h1>
-
-<p>
-The Adjustable Baby Bath Support keeps your baby secure and upright,
-so you can wash them safely without back strain.
-</p >
-
-<p style="margin-bottom:20px;color:#777;">
-⭐ Rated 4.8/5 by 300+ happy parents
-</p >
-
-<a href="#buy" class="hero-btn">Shop Now</a >
-
-</div>
-
-<div class="hero-image">
-<img src="product1.jpg">
-</div>
-
-</div>
-
-</div>
-
-<!-- PRODUCT -->
 
 <div class="container">
+  <div class="product-wrapper">
 
-<div class="product-wrapper">
+    <div class="product-image">
+      <img id="mainImage" src="product1.jpg" class="main-img">
 
-<div class="product-image">
+      <div class="thumbnail-grid">
+        <img src="product1.jpg" class="thumb active" onclick="changeImage(this)">
+        <img src="product2.jpg" class="thumb" onclick="changeImage(this)">
+        <img src="product3.jpg" class="thumb" onclick="changeImage(this)">
+        <img src="product4.jpg" class="thumb" onclick="changeImage(this)">
+        <img src="product5.jpg" class="thumb" onclick="changeImage(this)">
+        <img src="product6.jpg" class="thumb" onclick="changeImage(this)">
+      </div>
+    </div>
 
-<img id="mainImage" src="product1.jpg" class="main-img">
+    <div class="product-info">
+      <div class="rating">⭐⭐⭐⭐⭐ 4.8 (18078 Reviews) by 18000+ happy parents</div>
+      <div class="title">Adjustable Baby Bath Support</div>
 
-<div class="thumbnail-grid">
+      <div class="price">
+        <span class="old-price">$69.99</span>
+        $49.99
+      </div>
 
-<img src="product1.jpg" class="thumb active" onclick="changeImage(this)">
-<img src="product2.jpg" class="thumb" onclick="changeImage(this)">
-<img src="product3.jpg" class="thumb" onclick="changeImage(this)">
-<img src="product4.jpg" class="thumb" onclick="changeImage(this)">
-<img src="product5.jpg" class="thumb" onclick="changeImage(this)">
-<img src="product6.jpg" class="thumb" onclick="changeImage(this)">
+      <ul class="benefits">
+        <li>Keeps baby secure & upright</li>
+        <li>Reduces back strain</li>
+        <li>Stable anti-slip base</li>
+        <li>Designed for babies 6+ months</li>
+      </ul>
 
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="9FC2ZF4SNUP4Q">
+        <input type="hidden" name="currency_code" value="USD">
+        <input type="submit" value="Add to Cart" class="buy-btn">
+      </form>
+
+      <div class="trust">
+Secure checkout via PayPal <!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></td></tr><tr><td align="center"><a href="https://www.paypal.com/in/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/in/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/digitalassets/c/website/marketing/apac/IN/logo-center/logo-center-solution-graphics.png" border="0" alt="PayPal Acceptance Mark"></a></td></tr></table><!-- PayPal Logo -->
+      </div>
+    </div>
+  </div>
 </div>
 
+<div class="section">
+  <h2>Why Parents Love It</h2>
+  <div class="features-grid">
+    <div>
+      <h3>Hands-Free Bathing</h3>
+      <p>Wash your baby safely while keeping both hands free.</p >
+    </div>
+    <div>
+      <h3>Ergonomic Design</h3>
+      <p>Reduces bending and back discomfort.</p >
+    </div>
+    <div>
+      <h3>Secure & Stable</h3>
+      <p>Anti-slip base keeps it steady during use.</p >
+    </div>
+  </div>
 </div>
-
-<div class="product-info" id="buy">
-
-<div class="rating">⭐⭐⭐⭐⭐ 4.8 (326 Reviews)</div>
-
-<div class="title">Adjustable Baby Bath Support</div>
-
-<div class="price">
-<span class="old-price">$69.99</span>
-$49.99
-</div>
-
-<p class="stock">⚠ Only 12 units left in stock</p >
-
-<p id="viewers">👀 18 people are viewing this product right now</p >
-
-<ul class="benefits">
-<li>Keeps baby secure & upright</li>
-<li>Reduces back strain</li>
-<li>Stable anti-slip base</li>
-<li>Designed for babies 6+ months</li>
-</ul>
-
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="9FC2ZF4SNUP4Q">
-<input type="hidden" name="currency_code" value="USD">
-
-<input type="hidden" name="return" value="https://safebabybath.com/thankyou.html">
-
-<input type="image"
-src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif"
-border="0"
-name="submit"
-alt="Buy Now">
-
-</form>
-
-<div class="trust">
-
-Secure checkout powered by PayPal
-
-<br><br>
-
-<img src="https://i.imgur.com/7x8FQ4T.png" width="250">
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- FOOTER -->
 
 <div class="footer">
-
-<div class="footer-container">
-
-<div>
-<h4>Customer Support</h4>
-<a href="/contact">Contact Us</a >
-<a href="/track">Track Order</a >
+  <div class="footer-container">
+    <div>
+      <h4>Customer Support</h4>
+      <a href="contact">Contact Us</a >
+      <a href="track">Track Order</a >
+    </div>
+    <div>
+      <h4>Policies</h4>
+      <a href="/privacy">Privacy Policy</a >
+      <a href="/returns">Refund Policy</a >
+      <a href="/terms">Terms of Service</a >
+    </div>
+  </div>
 </div>
-
-<div>
-<h4>Policies</h4>
-<a href="/privacy">Privacy Policy</a >
-<a href="/returns">Refund Policy</a >
-<a href="/terms">Terms of Service</a >
-</div>
-
-</div>
-
-</div>
-
-<!-- STICKY BUY BAR -->
 
 <div class="sticky-bar">
-
-<div>$49.99</div>
-
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="9FC2ZF4SNUP4Q">
-<input type="hidden" name="currency_code" value="USD">
-
-<input type="hidden" name="return" value="https://safebabybath.com/thankyou.html">
-
-<input type="submit" value="Buy Now"
-style="background:#111;color:white;padding:10px 20px;border:none;border-radius:6px;">
-
-</form>
-
+  <div class="sticky-price">$49.99</div>
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <input type="hidden" name="cmd" value="_s-xclick">
+    <input type="hidden" name="hosted_button_id" value="9FC2ZF4SNUP4Q">
+    <input type="hidden" name="currency_code" value="USD">
+    <input type="submit" value="Buy Now" style="background:#111;color:white;padding:10px 20px;border:none;border-radius:6px;">
+  </form>
 </div>
 
 <script>
-
 function changeImage(element){
-document.getElementById("mainImage").src = element.src;
-
-document.querySelectorAll(".thumb").forEach(img=>{
-img.classList.remove("active");
-});
-
-element.classList.add("active");
+  document.getElementById("mainImage").src = element.src;
+  document.querySelectorAll(".thumb").forEach(img=>{
+    img.classList.remove("active");
+  });
+  element.classList.add("active");
 }
-
-function updateViewers(){
-let num = Math.floor(Math.random()*12)+14;
-document.getElementById("viewers").innerText =
-"👀 "+num+" people are viewing this product right now";
-}
-
-setInterval(updateViewers,4000);
-
 </script>
 
 </body>
