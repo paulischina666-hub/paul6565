@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thank You | SafeBabyBath</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      text-align:center;
+      padding:50px;
+      background:#f8f8f8;
+    }
+
+    .box{
+      background:white;
+      padding:40px;
+      border-radius:12px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+      max-width:500px;
+      margin:auto;
+    }
+
+    h1{
+      color:#111;
+    }
+
+    p{
+      color:#555;
+      margin-top:20px;
+      line-height:1.6;
+    }
+
+    a{
+      display:inline-block;
+      margin-top:30px;
+      padding:12px 25px;
+      background:#111;
+      color:white;
+      text-decoration:none;
+      border-radius:8px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>Thank You For Your Order!</h1>
+  <p>
+    We have received your payment successfully.
+    You will receive a confirmation email shortly.
+  </p >
+  <p>
+    Orders are processed within 1–2 business days.
+  </p >
+
+  <a href=" ">Back to Store</a >
+</div>
+
+</body>
+</html>
