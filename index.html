@@ -16,7 +16,112 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+/* ---------- TRUST ICONS ---------- */
+.trust-icons{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:20px;
+  max-width:900px;
+  margin:40px auto;
+  text-align:center;
+}
+.trust-icons div{
+  background:#f7f7f7;
+  padding:18px;
+  border-radius:10px;
+  font-size:14px;
+}
 
+/* ---------- HOW IT WORKS ---------- */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:30px;
+  max-width:900px;
+  margin:40px auto;
+  text-align:center;
+}
+.steps img{
+  width:100%;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+/* ---------- COMPARISON ---------- */
+.compare{
+  max-width:900px;
+  margin:50px auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+.compare div{
+  background:#f7f7f7;
+  padding:20px;
+  border-radius:10px;
+}
+.compare h3{
+  margin-bottom:10px;
+}
+
+/* ---------- LIFESTYLE ---------- */
+.lifestyle{
+  display:flex;
+  flex-wrap:wrap;
+  gap:40px;
+  align-items:center;
+  max-width:1000px;
+  margin:60px auto;
+}
+.lifestyle img{
+  width:100%;
+  max-width:450px;
+  border-radius:14px;
+}
+
+/* ---------- REVIEWS ---------- */
+.review-slider{
+  max-width:700px;
+  margin:40px auto;
+  text-align:center;
+}
+.review{
+  display:none;
+  font-size:16px;
+}
+.review.active{
+  display:block;
+}
+
+/* ---------- FAQ ---------- */
+.faq{
+  max-width:700px;
+  margin:50px auto;
+}
+.faq-item{
+  border-bottom:1px solid #ddd;
+  padding:15px 0;
+}
+.faq-question{
+  font-weight:600;
+  cursor:pointer;
+}
+.faq-answer{
+  display:none;
+  color:#555;
+  margin-top:10px;
+}
+
+/* ---------- STICKY TRUST BAR ---------- */
+.trust-bar{
+  position:fixed;
+  bottom:60px;
+  width:100%;
+  background:#f7f7f7;
+  text-align:center;
+  padding:6px;
+  font-size:13px;
+}
 body{
   font-family:'Inter',sans-serif;
   background:#fff;
@@ -272,7 +377,29 @@ body{
         <img src="product6.jpg" class="thumb" onclick="changeImage(this)">
       </div>
     </div>
+<div class="trust-icons">
 
+<div>
+🔒 <br>
+<strong>Secure Checkout</strong>
+</div>
+
+<div>
+🚚 <br>
+<strong>Fast Shipping</strong>
+</div>
+
+<div>
+💰 <br>
+<strong>30-Day Guarantee</strong>
+</div>
+
+<div>
+👶 <br>
+<strong>Baby-Safe Materials</strong>
+</div>
+
+</div>
     <div class="product-info">
       <div class="rating">⭐⭐⭐⭐⭐ 4.8 (18078 Reviews) by 18000+ happy parents</div>
       <div class="title">Adjustable Baby Bath Support</div>
@@ -340,7 +467,136 @@ We created SafeBabyBath to give parents peace of mind while keeping babies secur
 </ul>
 
 </div>
+<div class="lifestyle">
 
+< img src="bath_lifestyle.jpg">
+
+<div>
+<h2>Bath Time Should Be Joyful</h2>
+
+<p>
+SafeBabyBath keeps your baby comfortably supported
+so parents can enjoy bath time without stress.
+</p >
+
+<p>
+Designed for stability, comfort, and peace of mind.
+</p >
+
+</div>
+
+</div>
+    <div class="section">
+
+<h2>How It Works</h2>
+
+<div class="steps">
+
+<div>
+< img src="step1.jpg">
+<p><strong>Step 1</strong><br>
+Place the bath support in the tub.</p >
+</div>
+
+<div>
+< img src="step2.jpg">
+<p><strong>Step 2</strong><br>
+Sit baby comfortably in the seat.</p >
+</div>
+
+<div>
+< img src="step3.jpg">
+<p><strong>Step 3</strong><br>
+Enjoy safe and stress-free bath time.</p >
+</div>
+
+</div>
+
+</div>
+    <div class="section">
+
+<h2>The Safer Way to Bathe Your Baby</h2>
+
+<div class="compare">
+
+<div>
+<h3>Without Support</h3>
+<p>❌ Slippery tub</p >
+<p>❌ Hard to hold baby</p >
+<p>❌ Back strain</p >
+<p>❌ Stressful bath time</p >
+</div>
+
+<div>
+<h3>With SafeBabyBath</h3>
+<p>✅ Stable upright support</p >
+<p>✅ Hands-free washing</p >
+<p>✅ Ergonomic design</p >
+<p>✅ Relaxing bath time</p >
+</div>
+
+</div>
+
+</div>
+    <div class="section">
+
+<h2>Frequently Asked Questions</h2>
+
+<div class="faq">
+
+<div class="faq-item">
+<div class="faq-question">Is it safe for babies?</div>
+<div class="faq-answer">
+Yes, the seat is designed with an anti-slip base and ergonomic support.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">What age is it for?</div>
+<div class="faq-answer">
+Recommended for babies 6 months and older.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">How long does shipping take?</div>
+<div class="faq-answer">
+Shipping usually takes 7-12 business days.
+</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Do you offer refunds?</div>
+<div class="faq-answer">
+Yes, we offer a 30-day money-back guarantee.
+</div>
+</div>
+<script>
+
+/* Review Slider */
+
+let reviews=document.querySelectorAll(".review");
+let index=0;
+
+setInterval(()=>{
+reviews[index].classList.remove("active");
+index=(index+1)%reviews.length;
+reviews[index].classList.add("active");
+},4000);
+
+/* FAQ Accordion */
+
+document.querySelectorAll(".faq-question").forEach(q=>{
+q.addEventListener("click",()=>{
+let ans=q.nextElementSibling;
+ans.style.display=ans.style.display==="block"?"none":"block";
+});
+});
+
+</script>
+</div>
+
+</div>
 <div style="background:#f7f7f7;padding:20px;border-radius:10px;max-width:600px;margin:auto;margin-top:20px;">
 
 <h3 style="margin-bottom:10px;">Our Guarantee</h3>
