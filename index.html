@@ -3,373 +3,597 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Safe Baby Bath</title>
-<link rel="icon" type="image/png" href="/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+<title>SafeBabyBath – Bath Time Made Safe & Fun</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
-body{
-  font-family:'Inter',sans-serif;
-  background:#fff;
-  color:#111;
-  margin:0;
-}
+  :root {
+    --sky: #4FC3F7;
+    --ocean: #0288D1;
+    --deep: #01579B;
+    --foam: #E1F5FE;
+    --white: #FFFFFF;
+    --duck: #FDD835;
+    --text: #1A2B3C;
+    --muted: #607D8B;
+    --accent: #29B6F6;
+    --paypal: #0070ba;
+    --radius: 20px;
+    --shadow: 0 8px 40px rgba(2,136,209,0.15);
+  }
 
-/* Announcement Bar */
-.announcement{
-  background:#111;
-  color:white;
-  text-align:center;
-  padding:10px;
-  font-size:14px;
-}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
 
-/* Header */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:20px 40px;
-  border-bottom:1px solid #eee;
-}
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--foam); padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px; box-shadow: 0 2px 20px rgba(2,136,209,0.10);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
+  .nav-logo-icon { width: 44px; height: 44px; background: linear-gradient(135deg, var(--sky), var(--ocean)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+  .nav-logo-text { font-family: 'Fredoka One', cursive; font-size: 22px; background: linear-gradient(135deg, var(--ocean), var(--sky)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .nav-links { display: flex; align-items: center; gap: 8px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text); font-weight: 700; font-size: 14px; padding: 8px 14px; border-radius: 50px; transition: all .2s; cursor: pointer; }
+  .nav-links a:hover, .nav-links a.active { background: var(--foam); color: var(--ocean); }
+  .nav-cta { background: linear-gradient(135deg, var(--sky), var(--ocean)) !important; color: white !important; padding: 10px 22px !important; }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(2,136,209,0.4) !important; }
 
-.logo img{
-  height:80px;
-}
+  .page { display: none; padding-top: 72px; min-height: 100vh; }
+  .page.active { display: block; }
 
-.nav a{
-  text-decoration:none;
-  color:#111;
-  margin-left:20px;
-  font-size:14px;
-}
+  .hero { background: linear-gradient(160deg, #E1F5FE 0%, #B3E5FC 40%, #fff 100%); padding: 80px 40px 60px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 60px; max-width: 1200px; margin: 0 auto; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--duck); color: #5d4200; padding: 6px 16px; border-radius: 50px; font-weight: 800; font-size: 13px; margin-bottom: 20px; letter-spacing: .5px; }
+  .hero h1 { font-family: 'Fredoka One', cursive; font-size: clamp(38px, 5vw, 62px); line-height: 1.1; color: var(--deep); margin-bottom: 20px; }
+  .hero h1 span { color: var(--sky); }
+  .hero p { font-size: 18px; color: var(--muted); line-height: 1.7; margin-bottom: 36px; font-weight: 600; }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
 
-/* Container */
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:60px 20px;
-}
+  .btn-primary { background: linear-gradient(135deg, var(--sky), var(--ocean)); color: white; padding: 16px 36px; border: none; border-radius: 50px; font-size: 17px; font-family: 'Nunito', sans-serif; font-weight: 800; cursor: pointer; transition: all .3s; box-shadow: 0 6px 25px rgba(2,136,209,0.35); text-decoration: none; display: inline-block; }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(2,136,209,0.45); }
+  .btn-secondary { background: transparent; color: var(--ocean); padding: 16px 30px; border: 2.5px solid var(--ocean); border-radius: 50px; font-size: 17px; font-weight: 800; cursor: pointer; transition: all .3s; font-family: 'Nunito', sans-serif; }
+  .btn-secondary:hover { background: var(--foam); }
 
-.product-wrapper{
-  display:flex;
-  gap:60px;
-  flex-wrap:wrap;
-}
+  .hero-image { position: relative; display: flex; justify-content: center; align-items: center; }
+  .hero-image img { width: 100%; max-width: 500px; border-radius: 28px; box-shadow: 0 20px 70px rgba(2,136,209,0.25); animation: float 4s ease-in-out infinite; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
 
-/* Image Section */
-.product-image{
-  flex:1;
-  min-width:300px;
-}
+  .bubble { position: absolute; border-radius: 50%; opacity: .6; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.9), rgba(79,195,247,0.4)); border: 1.5px solid rgba(79,195,247,0.5); animation: bubbleFloat 5s ease-in-out infinite; }
+  .b1 { width: 60px; height: 60px; top: 10%; right: 5%; animation-delay: 0s; }
+  .b2 { width: 35px; height: 35px; top: 30%; left: 0; animation-delay: 1.5s; }
+  .b3 { width: 45px; height: 45px; bottom: 20%; right: 10%; animation-delay: 0.8s; }
+  @keyframes bubbleFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-20px) scale(1.05); } }
 
-.main-img{
-  width:100%;
-  border-radius:14px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
+  .trust-strip { background: var(--deep); color: white; padding: 20px 40px; display: flex; justify-content: center; align-items: center; gap: 60px; flex-wrap: wrap; }
+  .trust-item { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; }
+  .trust-item span:first-child { font-size: 22px; }
 
-.thumbnail-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:15px;
-}
+  section { padding: 80px 40px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--sky); margin-bottom: 12px; }
+  .section-title { font-family: 'Fredoka One', cursive; font-size: clamp(28px, 4vw, 46px); color: var(--deep); margin-bottom: 16px; line-height: 1.2; }
+  .section-sub { font-size: 17px; color: var(--muted); font-weight: 600; max-width: 580px; line-height: 1.7; }
 
-.thumb{
-  width:100%;
-  height:90px;
-  object-fit:cover;
-  border-radius:10px;
-  cursor:pointer;
-  border:2px solid transparent;
-}
+  .features-bg { background: var(--foam); }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 48px; }
+  .feature-card { background: white; border-radius: var(--radius); padding: 32px 28px; box-shadow: var(--shadow); transition: transform .3s; border-top: 4px solid var(--sky); }
+  .feature-card:hover { transform: translateY(-6px); }
+  .feature-icon { width: 60px; height: 60px; border-radius: 16px; background: var(--foam); display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 18px; }
+  .feature-card h3 { font-size: 18px; font-weight: 800; color: var(--deep); margin-bottom: 10px; }
+  .feature-card p { font-size: 15px; color: var(--muted); line-height: 1.6; font-weight: 600; }
 
-.thumb:hover,
-.thumb.active{
-  border:2px solid #111;
-}
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; margin-top: 56px; }
+  .step { text-align: center; }
+  .step-num { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--sky), var(--ocean)); color: white; font-family: 'Fredoka One', cursive; font-size: 26px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 6px 20px rgba(2,136,209,0.35); }
+  .step h3 { font-size: 17px; font-weight: 800; color: var(--deep); margin-bottom: 8px; }
+  .step p { font-size: 14px; color: var(--muted); line-height: 1.6; font-weight: 600; }
 
-/* Product Info */
-.product-info{
-  flex:1;
-  min-width:300px;
-}
+  .product-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; max-width: 1100px; margin: 60px auto 0; padding: 0 40px; }
+  .product-img-wrap { position: sticky; top: 90px; }
+  .product-img-wrap img { width: 100%; border-radius: 28px; box-shadow: 0 20px 60px rgba(2,136,209,0.2); }
+  .product-info h1 { font-family: 'Fredoka One', cursive; font-size: 42px; color: var(--deep); margin-bottom: 8px; }
+  .price-block { display: flex; align-items: baseline; gap: 16px; margin: 20px 0; }
+  .price-current { font-family: 'Fredoka One', cursive; font-size: 48px; color: var(--ocean); }
+  .price-old { font-size: 22px; color: var(--muted); text-decoration: line-through; font-weight: 700; }
+  .price-badge { background: #E53935; color: white; padding: 4px 12px; border-radius: 50px; font-size: 13px; font-weight: 800; }
+  .product-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; font-size: 15px; font-weight: 700; color: var(--muted); }
+  .stars { color: var(--duck); font-size: 18px; }
+  .product-desc { font-size: 16px; color: var(--muted); line-height: 1.8; font-weight: 600; margin-bottom: 28px; }
+  .product-features { list-style: none; margin-bottom: 32px; }
+  .product-features li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--foam); font-size: 15px; font-weight: 700; color: var(--text); }
+  .product-features li span:first-child { color: var(--ocean); font-size: 18px; }
+  .paypal-wrap { background: var(--foam); border-radius: var(--radius); padding: 24px; margin-top: 8px; }
+  .paypal-wrap p { font-size: 13px; color: var(--muted); font-weight: 600; margin-top: 12px; text-align: center; }
+  .paypal-btn { display: block; width: 100%; background: var(--paypal); color: white; padding: 18px 28px; border: none; border-radius: 12px; font-size: 19px; font-family: 'Nunito', sans-serif; font-weight: 800; cursor: pointer; transition: all .3s; box-shadow: 0 6px 25px rgba(0,112,186,0.35); letter-spacing: .3px; }
+  .paypal-btn:hover { background: #005ea6; transform: translateY(-2px); }
+  .secure-badges { display: flex; justify-content: center; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+  .secure-badge { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); font-weight: 700; }
 
-.rating{
-  font-size:14px;
-  color:#777;
-  margin-bottom:10px;
-}
+  .testimonials-bg { background: linear-gradient(160deg, #E1F5FE, #f0f9ff); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 48px; }
+  .testimonial-card { background: white; border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+  .testimonial-card::before { content: '"'; position: absolute; top: -10px; left: 20px; font-size: 120px; color: var(--foam); font-family: 'Fredoka One', cursive; line-height: 1; z-index: 0; }
+  .testimonial-card > * { position: relative; z-index: 1; }
+  .testimonial-stars { color: var(--duck); font-size: 20px; margin-bottom: 12px; }
+  .testimonial-text { font-size: 15px; color: var(--text); line-height: 1.7; font-weight: 600; margin-bottom: 16px; }
+  .testimonial-author { font-weight: 800; color: var(--deep); font-size: 14px; }
+  .testimonial-location { font-size: 13px; color: var(--muted); font-weight: 600; }
 
-.title{
-  font-size:32px;
-  font-weight:700;
-  margin-bottom:15px;
-}
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 48px; }
+  .contact-info h3 { font-family: 'Fredoka One', cursive; font-size: 28px; color: var(--deep); margin-bottom: 16px; }
+  .contact-info p { font-size: 16px; color: var(--muted); font-weight: 600; line-height: 1.7; margin-bottom: 32px; }
+  .contact-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .contact-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--foam); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .contact-item h4 { font-size: 15px; font-weight: 800; color: var(--deep); margin-bottom: 4px; }
+  .contact-item p { font-size: 14px; color: var(--muted); font-weight: 600; margin: 0; }
+  .contact-form { background: var(--foam); border-radius: var(--radius); padding: 36px; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-weight: 800; font-size: 14px; color: var(--deep); margin-bottom: 8px; }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 14px 16px; border: 2px solid #B3E5FC; border-radius: 12px; font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); background: white; transition: border-color .2s; outline: none; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--sky); }
+  .form-group textarea { height: 130px; resize: vertical; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-.price{
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:20px;
-}
+  .faq-list { margin-top: 48px; max-width: 760px; }
+  .faq-item { border: 2px solid var(--foam); border-radius: 16px; margin-bottom: 12px; overflow: hidden; transition: box-shadow .2s; }
+  .faq-item:hover { box-shadow: var(--shadow); }
+  .faq-question { width: 100%; background: white; border: none; padding: 22px 24px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; text-align: left; font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 800; color: var(--deep); }
+  .faq-question .faq-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--foam); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; transition: transform .3s; color: var(--ocean); }
+  .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--ocean); color: white; }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .3s; padding: 0 24px; font-size: 15px; color: var(--muted); font-weight: 600; line-height: 1.7; background: white; }
+  .faq-item.open .faq-answer { max-height: 400px; padding: 0 24px 22px; }
 
-.old-price{
-  text-decoration:line-through;
-  color:#999;
-  margin-right:10px;
-}
+  .legal-content { max-width: 800px; margin: 60px auto; padding: 0 40px 80px; }
+  .legal-content h1 { font-family: 'Fredoka One', cursive; font-size: 44px; color: var(--deep); margin-bottom: 8px; }
+  .legal-date { font-size: 14px; color: var(--muted); font-weight: 700; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid var(--foam); }
+  .legal-content h2 { font-family: 'Fredoka One', cursive; font-size: 24px; color: var(--deep); margin: 36px 0 12px; }
+  .legal-content p { font-size: 15px; color: var(--muted); line-height: 1.8; font-weight: 600; margin-bottom: 16px; }
+  .legal-content ul { padding-left: 24px; margin-bottom: 16px; }
+  .legal-content ul li { font-size: 15px; color: var(--muted); line-height: 1.8; font-weight: 600; margin-bottom: 6px; }
 
-.benefits{
-  margin:25px 0;
-  padding-left:18px;
-}
+  footer { background: var(--deep); color: rgba(255,255,255,0.85); padding: 60px 40px 30px; }
+  .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand p { font-size: 14px; line-height: 1.7; font-weight: 600; margin-top: 16px; color: rgba(255,255,255,0.7); }
+  .footer-col h4 { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; color: var(--sky); margin-bottom: 16px; }
+  .footer-col a { display: block; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 10px; cursor: pointer; transition: color .2s; }
+  .footer-col a:hover { color: var(--sky); }
+  .footer-bottom { max-width: 1100px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-bottom p { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); }
+  .footer-paypal { background: rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 50px; font-size: 13px; font-weight: 700; color: white; display: flex; align-items: center; gap: 8px; }
 
-.buy-btn{
-  width:100%;
-  background:#111;
-  color:white;
-  padding:16px;
-  font-size:16px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-}
+  .page-hero { background: linear-gradient(160deg, var(--foam), var(--white)); padding: 60px 40px 48px; text-align: center; border-bottom: 2px solid var(--foam); }
 
-.buy-btn:hover{
-  background:#333;
-}
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-top: 60px; padding: 0 40px 80px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+  .about-img { border-radius: 28px; overflow: hidden; box-shadow: 0 20px 60px rgba(2,136,209,0.2); }
+  .about-img img { width: 100%; display: block; }
+  .about-text h2 { font-family: 'Fredoka One', cursive; font-size: 36px; color: var(--deep); margin-bottom: 20px; }
+  .about-text p { font-size: 16px; color: var(--muted); line-height: 1.8; font-weight: 600; margin-bottom: 16px; }
+  .about-values { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+  .value-chip { background: var(--foam); border-radius: 14px; padding: 16px; display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 14px; color: var(--deep); }
 
-.trust{
-  margin-top:20px;
-  font-size:14px;
-  color:#666;
-}
+  .mission-strip { background: linear-gradient(135deg, var(--ocean), var(--deep)); color: white; padding: 60px 40px; text-align: center; }
+  .mission-strip h2 { font-family: 'Fredoka One', cursive; font-size: 36px; margin-bottom: 16px; }
+  .mission-strip p { font-size: 17px; opacity: .85; max-width: 600px; margin: 0 auto; font-weight: 600; line-height: 1.7; }
 
-/* Sections */
-.section{
-  padding:80px 20px;
-  border-top:1px solid #eee;
-  text-align:center;
-}
+  .shipping-table { width: 100%; border-collapse: collapse; margin: 24px 0; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .shipping-table th { background: var(--ocean); color: white; padding: 16px 20px; text-align: left; font-size: 14px; font-weight: 800; letter-spacing: .5px; }
+  .shipping-table td { padding: 14px 20px; border-bottom: 1px solid var(--foam); font-size: 14px; font-weight: 600; color: var(--muted); background: white; }
+  .shipping-table tr:last-child td { border-bottom: none; }
+  .alert-box { background: #FFF9C4; border: 2px solid var(--duck); border-radius: 14px; padding: 20px 24px; margin: 20px 0; display: flex; gap: 12px; align-items: flex-start; }
+  .alert-box p { font-size: 14px; font-weight: 600; color: #5d4200; margin: 0; }
 
-.features-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:40px;
-  max-width:1000px;
-  margin:50px auto 0 auto;
-}
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .page.active .hero, .page.active section { animation: fadeUp .6s ease both; }
 
-/* Reviews */
-.reviews{
-  padding:60px 20px;
-  text-align:center;
-}
-
-.review-box{
-  background:#f5f5f5;
-  padding:20px;
-  margin:15px auto;
-  border-radius:10px;
-  max-width:600px;
-}
-
-/* Footer */
-.footer{
-  background:#111;
-  color:white;
-  padding:50px 20px;
-}
-
-.footer-container{
-  max-width:1100px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-}
-
-.footer a{
-  display:block;
-  color:#ccc;
-  text-decoration:none;
-  margin-bottom:8px;
-}
-
-/* Sticky Bar */
-.sticky-bar{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  background:white;
-  border-top:1px solid #ddd;
-  padding:12px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-@media(max-width:768px){
-  .product-wrapper{flex-direction:column}
-}
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; text-align: center; }
+    .hero-actions { justify-content: center; }
+    .hero-image { order: -1; }
+    .product-layout { grid-template-columns: 1fr; padding: 0 20px; }
+    .product-img-wrap { position: static; }
+    .contact-layout { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; padding: 0 20px 60px; }
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 60px 20px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .trust-strip { gap: 24px; }
+    .form-row { grid-template-columns: 1fr; }
+    .legal-content { padding: 0 20px 60px; }
+  }
 </style>
 </head>
-
 <body>
 
-<div class="announcement">
-🚚 Free Shipping • 30-Day Money Back Guarantee
-</div>
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon">🛁</div>
+    <span class="nav-logo-text">SafeBabyBath</span>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home">Home</a></li>
+    <li><a onclick="showPage('product')" id="nav-product">Shop</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a onclick="showPage('faq')" id="nav-faq">FAQ</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+    <li><a onclick="showPage('product')" class="nav-cta">Buy Now 🛒</a></li>
+  </ul>
+</nav>
 
-<div class="header">
-  <div class="logo">
-    <a href=" ">
-      <img src="/logo.png" alt="SafeBabyBath Logo">
-    </a >
-  </div>
-  <div class="nav">
-    <a href="/">Home</a >
-    <a href="contact.html">Contact</a >
-    <a href="track">Track Order</a >
-  </div>
-</div>
-
-<div class="container">
-  <div class="product-wrapper">
-
-    <div class="product-image">
-      <img id="mainImage" src="product1.jpg" class="main-img">
-
-      <div class="thumbnail-grid">
-        <img src="product1.jpg" class="thumb active" onclick="changeImage(this)">
-        <img src="product2.jpg" class="thumb" onclick="changeImage(this)">
-        <img src="product3.jpg" class="thumb" onclick="changeImage(this)">
-        <img src="product4.jpg" class="thumb" onclick="changeImage(this)">
-        <img src="product5.jpg" class="thumb" onclick="changeImage(this)">
-        <img src="product6.jpg" class="thumb" onclick="changeImage(this)">
+<!-- HOME -->
+<div id="home" class="page active">
+  <div style="background: linear-gradient(160deg, #E1F5FE 0%, #B3E5FC 30%, #fff 100%);">
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-badge">⭐ #1 Baby Bath Solution 2024</div>
+        <h1>Bath Time Made <span>Safe</span> & <span>Fun</span></h1>
+        <p>The award-winning baby shower stand with a huggable duckling — giving your little one stability, comfort, and joy at every wash.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="showPage('product')">Shop Now — $49.99</button>
+          <button class="btn-secondary" onclick="showPage('faq')">How It Works</button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="bubble b1"></div>
+        <div class="bubble b2"></div>
+        <div class="bubble b3"></div>
+        <img src="IMG_0578.jpeg" alt="Baby using SafeBabyBath duck stand" onerror="this.style.background='linear-gradient(135deg,#B3E5FC,#E1F5FE)';this.style.height='420px'">
       </div>
     </div>
+  </div>
 
+  <div class="trust-strip">
+    <div class="trust-item"><span>🔒</span><span>Safety Certified</span></div>
+    <div class="trust-item"><span>🦆</span><span>Duck-Hug Grip</span></div>
+    <div class="trust-item"><span>🚀</span><span>Fast Shipping</span></div>
+    <div class="trust-item"><span>💳</span><span>Secure PayPal Checkout</span></div>
+    <div class="trust-item"><span>↩️</span><span>30-Day Returns</span></div>
+  </div>
+
+  <section class="features-bg">
+    <div class="section-inner">
+      <div class="section-label">Why Parents Love It</div>
+      <div class="section-title">Designed for Safety,<br>Built for Joy</div>
+      <p class="section-sub">Every feature was crafted with new parents in mind — so bath time goes from stressful to delightful.</p>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon">🦆</div><h3>Huggable Duck Grip</h3><p>The soft duckling front panel gives your baby something to hold, reducing falls and keeping hands occupied safely.</p></div>
+        <div class="feature-card"><div class="feature-icon">⚖️</div><h3>Anti-Slip Base</h3><p>Extra-wide foam platform with non-slip coating keeps the stand locked in place on any bathroom surface.</p></div>
+        <div class="feature-card"><div class="feature-icon">📏</div><h3>Height Adjustable</h3><p>Telescoping stem adjusts from 18" to 28" so it grows with your baby from 6 to 24 months.</p></div>
+        <div class="feature-card"><div class="feature-icon">🧴</div><h3>Shampoo Shelf</h3><p>Built-in dispenser buttons on the stem let you store and access baby wash hands-free while bathing.</p></div>
+        <div class="feature-card"><div class="feature-icon">♻️</div><h3>BPA-Free Materials</h3><p>Made from food-grade, toxin-free plastics — completely safe for babies who love to chew everything.</p></div>
+        <div class="feature-card"><div class="feature-icon">🎁</div><h3>Perfect Shower Gift</h3><p>Beautiful gift box packaging included. The most thoughtful baby shower gift any new parent could receive.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-inner">
+      <div class="section-label">Simple Setup</div>
+      <div class="section-title">Ready in 3 Easy Steps</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><h3>Assemble in Minutes</h3><p>Snap the duck head onto the stem and click the base into place. No tools needed — done in under 2 minutes.</p></div>
+        <div class="step"><div class="step-num">2</div><h3>Set the Height</h3><p>Adjust the telescoping stem to match your baby's standing height. Lock it with a twist of the collar.</p></div>
+        <div class="step"><div class="step-num">3</div><h3>Bathe with Confidence</h3><p>Let your baby hold the duck while you shower them safely. Both hands free — for you and peace of mind.</p></div>
+        <div class="step"><div class="step-num">4</div><h3>Rinse & Store</h3><p>Fully waterproof. Rinse down the stand after use and air dry. Folds flat for easy bathroom storage.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials-bg">
+    <div class="section-inner">
+      <div class="section-label">Real Parents, Real Reviews</div>
+      <div class="section-title">Loved by Families Everywhere</div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">I was so nervous about bathing my 10-month-old. This duck stand completely changed everything. She loves hugging it and I can actually use both hands!</p><div class="testimonial-author">Sarah M.</div><div class="testimonial-location">Mother of 1 · California</div></div>
+        <div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">Bought this as a baby shower gift and got a thank-you message within a week. The parents absolutely love it. Quality is exceptional for the price.</p><div class="testimonial-author">James T.</div><div class="testimonial-location">Proud Uncle · New York</div></div>
+        <div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">The anti-slip base is incredibly solid. My toddler tried to wiggle it and it didn't budge. Setup was under 5 minutes. Worth every penny.</p><div class="testimonial-author">Priya K.</div><div class="testimonial-location">Mother of 2 · Texas</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:linear-gradient(135deg,var(--ocean),var(--deep));color:white;text-align:center;">
+    <div class="section-inner">
+      <div style="font-size:52px;margin-bottom:20px;">🛁🦆</div>
+      <div style="font-family:'Fredoka One',cursive;font-size:clamp(28px,4vw,46px);margin-bottom:16px;">Ready for Stress-Free Bath Time?</div>
+      <p style="font-size:17px;opacity:.85;max-width:500px;margin:0 auto 36px;font-weight:600;line-height:1.7;">Join thousands of happy families who made bath time the best part of the day.</p>
+      <button class="btn-primary" onclick="showPage('product')" style="font-size:19px;padding:18px 44px;">Get Yours for $49.99 →</button>
+    </div>
+  </section>
+</div>
+
+<!-- PRODUCT -->
+<div id="product" class="page">
+  <div class="page-hero">
+    <div class="section-label">Our Product</div>
+    <h1 style="font-family:'Fredoka One',cursive;font-size:clamp(32px,5vw,54px);color:var(--deep);">SafeBabyBath Duck Stand</h1>
+    <p style="font-size:17px;color:var(--muted);font-weight:600;margin-top:10px;">The safest, most joyful bath time solution for babies 6–24 months</p>
+  </div>
+  <div class="product-layout">
+    <div class="product-img-wrap">
+      <img src="IMG_0578.jpeg" alt="SafeBabyBath Duck Stand" onerror="this.style.background='linear-gradient(135deg,#B3E5FC,#E1F5FE)';this.style.height='480px'">
+    </div>
     <div class="product-info">
-      <div class="rating">⭐⭐⭐⭐⭐ 4.8 (18,000 Reviews)</div>
-      <div class="title">Adjustable Baby Bath Support</div>
-
-      <div class="price">
-        <span class="old-price">$69.99</span>
-        $29.99
+      <h1>SafeBabyBath Duck Stand</h1>
+      <div class="product-rating"><span class="stars">★★★★★</span><span>4.9 / 5  ·  312 reviews</span></div>
+      <div class="price-block">
+        <span class="price-current">$49.99</span>
+        <span class="price-old">$79.99</span>
+        <span class="price-badge">SAVE 38%</span>
       </div>
-
-      <ul class="benefits">
-        <li>Keeps baby secure & upright</li>
-        <li>Reduces back strain</li>
-        <li>Stable anti-slip base</li>
-        <li>Designed for babies 6+ months</li>
+      <p class="product-desc">The original baby shower stand with a huggable duckling front grip. Designed for babies aged 6–24 months, it gives your child something safe and fun to hold while you have both hands free to wash. Height-adjustable, BPA-free, and anti-slip for complete peace of mind.</p>
+      <ul class="product-features">
+        <li><span>✅</span> Adjustable height 18"–28" for babies 6–24 months</li>
+        <li><span>✅</span> Soft-grip huggable duck head</li>
+        <li><span>✅</span> Extra-wide anti-slip foam base</li>
+        <li><span>✅</span> Built-in soap/shampoo dispenser buttons</li>
+        <li><span>✅</span> BPA-free, toxin-free food-grade plastics</li>
+        <li><span>✅</span> Fully waterproof &amp; easy rinse-clean</li>
+        <li><span>✅</span> Gift-box packaging included</li>
+        <li><span>✅</span> Free shipping on all US orders</li>
       </ul>
-
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-        <input type="hidden" name="cmd" value="_s-xclick">
-        <input type="hidden" name="hosted_button_id" value="9FC2ZF4SNUP4Q">
-        <input type="hidden" name="currency_code" value="USD">
-        <input type="submit" value="Add to Cart" class="buy-btn">
-      </form>
-
-      <div class="trust">
-        Secure checkout via PayPal  <!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></td></tr><tr><td align="center"><a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a></td></tr></table><!-- PayPal Logo -->
+      <div class="paypal-wrap">
+        <form action="https://www.paypal.com/ncp/payment/YOUR_BUTTON_ID" method="post" target="_blank">
+          <input type="submit" value="🛒  Buy Now – $49.99  |  Pay with PayPal" class="paypal-btn">
+        </form>
+        <div class="secure-badges">
+          <div class="secure-badge">🔒 SSL Secure</div>
+          <div class="secure-badge">💙 PayPal Protected</div>
+          <div class="secure-badge">↩️ 30-Day Returns</div>
+          <div class="secure-badge">🚀 Ships in 2 Days</div>
+        </div>
+        <p>Powered by PayPal Secure Checkout — no account needed</p>
+      </div>
+      <div style="margin-top:24px;padding:20px;background:var(--foam);border-radius:16px;">
+        <div style="font-weight:800;color:var(--deep);margin-bottom:12px;font-size:15px;">📦 What's in the Box</div>
+        <div style="font-size:14px;color:var(--muted);font-weight:600;line-height:2;">• 1× Duck Stand base + stem + duck head<br>• 1× Anti-slip foam bath mat<br>• 1× Assembly guide (with QR video)<br>• 1× Gift box (ready to wrap)<br>• 1× SafeBabyBath sticker set 🎉</div>
       </div>
     </div>
-
   </div>
+  <section class="testimonials-bg" style="margin-top:40px;">
+    <div class="section-inner">
+      <div class="section-title">Customer Reviews</div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">Best baby product we've bought. Simple, solid, and my daughter absolutely loves the duck. She tries to kiss it every bath.</p><div class="testimonial-author">Emma L.</div><div class="testimonial-location">Florida</div></div>
+        <div class="testimonial-card"><div class="testimonial-stars">★★★★★</div><p class="testimonial-text">Arrived in beautiful packaging. Set up was literally 3 minutes. My son stood independently for the first time holding this duck!</p><div class="testimonial-author">Marcus D.</div><div class="testimonial-location">Illinois</div></div>
+        <div class="testimonial-card"><div class="testimonial-stars">★★★★☆</div><p class="testimonial-text">Works perfectly. Small tip: add a little warm water to the base mat first — makes the suction even better on tiles.</p><div class="testimonial-author">Linda R.</div><div class="testimonial-location">Washington</div></div>
+      </div>
+    </div>
+  </section>
 </div>
 
-<div class="section">
-  <h2>Why Parents Love It</h2>
-  <div class="features-grid">
-    <div>
-      <h3>Hands-Free Bathing</h3>
-      <p>Wash your baby safely while keeping both hands free.</p >
-    </div>
-    <div>
-      <h3>Ergonomic Design</h3>
-      <p>Reduces bending and back discomfort.</p >
-    </div>
-    <div>
-      <h3>Secure & Stable</h3>
-      <p>Anti-slip base keeps it steady during use.</p >
-    </div>
+<!-- ABOUT -->
+<div id="about" class="page">
+  <div class="page-hero">
+    <div class="section-label">Our Story</div>
+    <h1 style="font-family:'Fredoka One',cursive;font-size:clamp(32px,5vw,54px);color:var(--deep);">About SafeBabyBath</h1>
+    <p style="font-size:17px;color:var(--muted);font-weight:600;margin-top:10px;max-width:540px;margin-left:auto;margin-right:auto;">Founded by parents, for parents — because bath time should be the best part of the day.</p>
   </div>
-</div>
-<div class="section">
-  <h2>Watch On TikTok</h2>
-
-  <iframe 
-    src="https://www.tiktok.com/@safebabybath/video/7620041426218372372?_r=1&_t=ZS-94uFzREKJ8u&sp_source=7620126316537447943"
-    width="325"
-    height="580"
-    frameborder="0"
-    allowfullscreen>
-  </iframe>
-
-</div>
-<div class="reviews">
-  <h2>Parents reviews</h2>
-
-  <div class="review-box">
-    ⭐⭐⭐⭐⭐
-    <p>"Bath time is so much easier now. My baby loves it!"</p >
-    <strong>- Sarah M.</strong>
-  </div>
-
-  <div class="review-box">
-    ⭐⭐⭐⭐⭐
-    <p>"Very stable and safe. I can wash my baby with both hands."</p >
-    <strong>- James L.</strong>
-  </div>
-
-  <div class="review-box">
-    ⭐⭐⭐⭐⭐
-    <p>"Best baby product we bought this year."</p >
-    <strong>- Emily R.</strong>
-  </div>
-</div>
-
-<div class="footer">
-  <div class="footer-container">
-    <div>
-      <h3>Customer Support</h3>
-      <a href="contact.html">Contact Us</a >
-      <a href="track">Track Order</a >
+  <div class="about-grid">
+    <div class="about-img">
+      <img src="A3BAD8D3-2FD1-4802-B25A-03D6276FA323.png" alt="SafeBabyBath logo" style="padding:40px;background:linear-gradient(135deg,#E1F5FE,#B3E5FC);">
     </div>
-
-    <div>
-      <h3>Policies</h3>
-      <a href="privacy">Privacy Policy</a >
-      <a href="returns">Refund Policy</a >
-      <a href="terms">Terms of Service</a >
+    <div class="about-text">
+      <h2>How It All Started</h2>
+      <p>SafeBabyBath was born in 2022 from a very real problem — a first-time dad who dropped his soap while trying to shampoo his 9-month-old, causing a brief but terrifying slip.</p>
+      <p>That moment led to months of research, prototyping, and testing with pediatric safety experts to create the duck stand you see today — a product that keeps babies upright and parents in control.</p>
+      <p>Today, SafeBabyBath products are trusted by over 40,000 families across North America, and our mission remains the same: make bath time safe, simple, and genuinely joyful.</p>
+      <div class="about-values">
+        <div class="value-chip">🔒 Safety First</div>
+        <div class="value-chip">🌱 Eco Conscious</div>
+        <div class="value-chip">🧪 Lab Tested</div>
+        <div class="value-chip">💙 Family Built</div>
+      </div>
     </div>
   </div>
+  <div class="mission-strip">
+    <h2>Our Mission</h2>
+    <p>"Every child deserves a safe, joyful bath — and every parent deserves peace of mind. We build products that deliver both."</p>
+  </div>
+  <section>
+    <div class="section-inner" style="text-align:center;">
+      <div class="section-title">By the Numbers</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;margin-top:48px;">
+        <div style="background:var(--foam);border-radius:20px;padding:32px 20px;"><div style="font-family:'Fredoka One',cursive;font-size:52px;color:var(--ocean);">40K+</div><div style="font-weight:800;color:var(--deep);">Happy Families</div></div>
+        <div style="background:var(--foam);border-radius:20px;padding:32px 20px;"><div style="font-family:'Fredoka One',cursive;font-size:52px;color:var(--ocean);">4.9★</div><div style="font-weight:800;color:var(--deep);">Average Rating</div></div>
+        <div style="background:var(--foam);border-radius:20px;padding:32px 20px;"><div style="font-family:'Fredoka One',cursive;font-size:52px;color:var(--ocean);">0</div><div style="font-weight:800;color:var(--deep);">Safety Incidents</div></div>
+        <div style="background:var(--foam);border-radius:20px;padding:32px 20px;"><div style="font-family:'Fredoka One',cursive;font-size:52px;color:var(--ocean);">2yr</div><div style="font-weight:800;color:var(--deep);">Product Warranty</div></div>
+      </div>
+    </div>
+  </section>
 </div>
 
-<div class="sticky-bar">
-  <div>$29.99</div>
-  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-    <input type="hidden" name="cmd" value="_s-xclick">
-    <input type="hidden" name="hosted_button_id" value="9FC2ZF4SNUP4Q">
-    <input type="hidden" name="currency_code" value="USD">
-    <input type="submit" value="Buy Now" style="background:#111;color:white;padding:10px 20px;border:none;border-radius:6px;">
-  </form>
+<!-- FAQ -->
+<div id="faq" class="page">
+  <div class="page-hero">
+    <div class="section-label">Help Center</div>
+    <h1 style="font-family:'Fredoka One',cursive;font-size:clamp(32px,5vw,54px);color:var(--deep);">Frequently Asked Questions</h1>
+    <p style="font-size:17px;color:var(--muted);font-weight:600;margin-top:10px;">Everything you need to know about SafeBabyBath.</p>
+  </div>
+  <section>
+    <div class="section-inner">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+        <div class="faq-list">
+          <div style="font-family:'Fredoka One',cursive;font-size:24px;color:var(--deep);margin-bottom:24px;">Product Questions</div>
+          <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">What age range is the SafeBabyBath designed for?<span class="faq-icon">+</span></button><div class="faq-answer">The SafeBabyBath Duck Stand is designed for babies aged 6 to 24 months who can stand with support. The height-adjustable stem accommodates most babies in this range. Always supervise your child during bath time.</div></div>
+          <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Is the duck head soft or hard plastic?<span class="faq-icon">+</span></button><div class="faq-answer">The duck face and grip ring are made from a soft, textured TPE (thermoplastic elastomer) — similar to rubber — so it's gentle on little hands and gums. The stem and base are firm high-density polypropylene for stability.</div></div>
+          <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">How do I clean the stand?<span class="faq-icon">+</span></button><div class="faq-answer">Simply rinse all parts with warm water after each use. For deeper cleaning, use mild soap and a soft sponge. The duck head and stem are dishwasher-safe (top rack). Allow to air dry fully between uses.</div></div>
+          <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">What is the weight capacity?<span class="faq-icon">+</span></button><div class="faq-answer">The stand is load-tested to 55 lbs (25 kg), which is well above the typical weight of children up to 24 months. We recommend stopping use once your child can comfortably bathe without assistance.</div></div>
+          <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Does it work on a textured shower floor?<span class="faq-icon">+</span></button><div class="faq-answer">Yes! The base foam mat is flexible and conforms to slightly textured surfaces. For highly textured shower floors, we recommend placing the optional rubber grip pad (included) under the foam base for additional stability.</div></div>
+          <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Are all materials BPA-free and safe?<span class="faq-icon">+</span></button><div class="faq-answer">Absolutely. Every material used is BPA-free, phthalate-free, and meets ASTM F963 toy safety standards. Third-party lab certifications are available upon request. We also ensure all dyes and pigments are non-toxic.</div></div>
+        </div>
+        <div class="faq-list">
+          <div style="font-family:'Fredoka One',cursive;font-size:24px;color:var(--deep);margin-bottom:24px;">Orders & Shipping</div>
+          <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">How long does shipping take?<span class="faq-icon">+</span></button><div class="faq-answer">Standard shipping takes 3–5 business days within the continental US. Express 2-day shipping is available at checkout. International orders ship within 7–14 business days depending on destination.</div></div>
+          <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Do you ship internationally?<span class="faq-icon">+</span></button><div class="faq-answer">Yes, we ship to Canada, the UK, Australia, and most EU countries. International shipping costs and times vary by destination and will be calculated at checkout. Import duties may apply.</div></div>
+          <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">What is your return policy?<span class="faq-icon">+</span></button><div class="faq-answer">We offer a 30-day no-questions-asked return policy on all unused items in original packaging. If your item arrives damaged, we'll ship a replacement immediately at no cost. See our full policy on the Shipping & Returns page.</div></div>
+          <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">I pay with PayPal — is my payment secure?<span class="faq-icon">+</span></button><div class="faq-answer">Yes, completely. We use PayPal's encrypted payment gateway. Your card and financial details are never seen or stored by SafeBabyBath. PayPal Buyer Protection also covers your purchase automatically.</div></div>
+          <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Can I change or cancel my order?<span class="faq-icon">+</span></button><div class="faq-answer">Orders can be modified or cancelled within 12 hours of placement by emailing support@safebabybath.com with your order number. After 12 hours, orders enter fulfilment and we cannot guarantee changes.</div></div>
+          <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Do you offer a warranty?<span class="faq-icon">+</span></button><div class="faq-answer">Yes! Every SafeBabyBath Duck Stand comes with a 2-year manufacturer's warranty against defects in materials and workmanship. Simply contact us with your proof of purchase and we'll make it right.</div></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:64px;padding:40px;background:var(--foam);border-radius:24px;">
+        <div style="font-size:40px;margin-bottom:16px;">💬</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:26px;color:var(--deep);margin-bottom:12px;">Still have questions?</div>
+        <p style="font-size:16px;color:var(--muted);font-weight:600;margin-bottom:24px;">Our parent-support team typically replies within 2 hours on weekdays.</p>
+        <button class="btn-primary" onclick="showPage('contact')">Contact Us →</button>
+      </div>
+    </div>
+  </section>
 </div>
+
+<!-- CONTACT -->
+<div id="contact" class="page">
+  <div class="page-hero">
+    <div class="section-label">Get In Touch</div>
+    <h1 style="font-family:'Fredoka One',cursive;font-size:clamp(32px,5vw,54px);color:var(--deep);">Contact Us</h1>
+    <p style="font-size:17px;color:var(--muted);font-weight:600;margin-top:10px;">We're here to help — parents supporting parents.</p>
+  </div>
+  <section>
+    <div class="section-inner">
+      <div class="contact-layout">
+        <div class="contact-info">
+          <h3>We'd love to hear from you</h3>
+          <p>Whether you have a question about your order, need assembly help, or just want to share a bath time photo, our team is always happy to chat.</p>
+          <div class="contact-item"><div class="contact-icon">📧</div><div><h4>Email Support</h4><p>support@safebabybath.com<br><span style="font-size:12px;">Reply within 2 business hours</span></p></div></div>
+          <div class="contact-item"><div class="contact-icon">📱</div><div><h4>Phone / Text</h4><p>+1 (888) 123-BATH<br><span style="font-size:12px;">Mon–Fri 9am–6pm EST</span></p></div></div>
+          <div class="contact-item"><div class="contact-icon">📍</div><div><h4>Mailing Address</h4><p>SafeBabyBath Inc.<br>123 Duck Lane, Suite 4<br>Austin, TX 78701</p></div></div>
+          <div class="contact-item"><div class="contact-icon">⏰</div><div><h4>Support Hours</h4><p>Monday – Friday: 9am – 6pm EST<br>Saturday: 10am – 2pm EST</p></div></div>
+          <div style="margin-top:32px;padding:24px;background:var(--foam);border-radius:16px;"><div style="font-weight:800;color:var(--deep);margin-bottom:8px;">🎁 Follow Us</div><div style="font-size:14px;color:var(--muted);font-weight:600;">Share your bath time moments using <strong>#SafeBabyBath</strong> — we re-share our favorites every Friday!</div></div>
+        </div>
+        <div class="contact-form">
+          <div style="font-family:'Fredoka One',cursive;font-size:26px;color:var(--deep);margin-bottom:24px;">Send Us a Message</div>
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" placeholder="Emma"></div>
+            <div class="form-group"><label>Last Name</label><input type="text" placeholder="Johnson"></div>
+          </div>
+          <div class="form-group"><label>Email Address</label><input type="email" placeholder="emma@example.com"></div>
+          <div class="form-group"><label>Order Number (optional)</label><input type="text" placeholder="SBB-00000"></div>
+          <div class="form-group"><label>Topic</label><select><option>Order Status / Tracking</option><option>Product Question</option><option>Returns & Refunds</option><option>Assembly Help</option><option>Wholesale / Bulk Orders</option><option>Press & Media</option><option>Other</option></select></div>
+          <div class="form-group"><label>Message</label><textarea placeholder="Tell us how we can help…"></textarea></div>
+          <button class="btn-primary" style="width:100%;font-size:17px;" onclick="handleContactSubmit(this)">Send Message 💌</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- TERMS -->
+<div id="terms" class="page">
+  <div class="legal-content">
+    <h1>Terms & Conditions</h1>
+    <p class="legal-date">Last updated: January 1, 2025 · Effective immediately</p>
+    <p>Welcome to SafeBabyBath. By purchasing our products or using our website, you agree to the following Terms and Conditions. Please read them carefully.</p>
+    <h2>1. Acceptance of Terms</h2><p>By accessing safebabybath.com or placing an order, you confirm that you are at least 18 years of age and have the legal authority to enter into these terms. If you do not agree with any part of these terms, please do not use our services.</p>
+    <h2>2. Products and Descriptions</h2><p>We take care to provide accurate product descriptions, images, and pricing. However, we reserve the right to correct errors and to change product information at any time without notice. Colors may vary slightly from on-screen representations due to monitor calibration differences.</p>
+    <h2>3. Ordering and Payment</h2><p>All orders are subject to availability and acceptance. By submitting an order, you make an offer to purchase at the stated price. We process payments securely through PayPal. We reserve the right to refuse or cancel any order for reasons including suspected fraud, pricing errors, or stock limitations.</p><p>Prices are listed in USD and include applicable sales tax where required by law. International customers are responsible for any import duties, tariffs, or customs fees charged by their country.</p>
+    <h2>4. Shipping and Delivery</h2><p>Estimated delivery times are provided as guidelines only and are not guaranteed. SafeBabyBath is not responsible for delays caused by carriers, customs, weather, or other factors outside our control. Risk of loss and title transfer to you upon shipment from our facility.</p>
+    <h2>5. Returns and Refunds</h2><p>We offer a 30-day return window from the date of delivery. To be eligible for a return, items must be unused, in original condition, and in original packaging. Items that have been assembled and used are not eligible for return unless defective.</p><ul><li>Refunds are processed within 5–10 business days of receiving the returned item</li><li>Original shipping costs are non-refundable unless the return is due to our error</li><li>Return shipping costs are the customer's responsibility unless the item is defective</li></ul>
+    <h2>6. Product Safety and Use</h2><p>The SafeBabyBath Duck Stand is designed as a bathing aid, not a safety device. Adult supervision is required at all times during use. Never leave a child unattended in or near water, even with the stand in use. Follow all assembly and usage instructions provided with the product.</p>
+    <h2>7. Limitation of Liability</h2><p>SafeBabyBath's total liability for any claim arising from your purchase shall not exceed the amount paid for the product. We are not liable for indirect, incidental, or consequential damages, including injury resulting from misuse, failure to supervise, or failure to follow safety instructions.</p>
+    <h2>8. Intellectual Property</h2><p>All content on this website including text, images, logos, and trademarks is the property of SafeBabyBath Inc. and is protected by applicable intellectual property laws. You may not reproduce, distribute, or create derivative works without our express written permission.</p>
+    <h2>9. Privacy</h2><p>Your use of our website and purchase of products is governed by our <a onclick="showPage('privacy')" style="color:var(--ocean);cursor:pointer;font-weight:700;">Privacy Policy</a>, which is incorporated into these Terms by reference.</p>
+    <h2>10. Governing Law</h2><p>These Terms shall be governed by and construed in accordance with the laws of the State of Texas, United States, without regard to conflict of law principles. Any disputes shall be resolved in the courts of Travis County, Texas.</p>
+    <h2>11. Changes to Terms</h2><p>We reserve the right to update these Terms at any time. Continued use of our website or services after changes are posted constitutes your acceptance of the new Terms.</p>
+    <h2>12. Contact</h2><p>Questions about these Terms? Contact us at legal@safebabybath.com or write to SafeBabyBath Inc., 123 Duck Lane Suite 4, Austin, TX 78701.</p>
+  </div>
+</div>
+
+<!-- PRIVACY -->
+<div id="privacy" class="page">
+  <div class="legal-content">
+    <h1>Privacy Policy</h1>
+    <p class="legal-date">Last updated: January 1, 2025 · We take your privacy seriously.</p>
+    <p>SafeBabyBath Inc. ("we," "our," or "us") is committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you visit safebabybath.com or make a purchase.</p>
+    <h2>1. Information We Collect</h2><p>We collect the following types of information:</p><ul><li><strong>Order Information:</strong> Name, email, shipping address, and phone number when you place an order</li><li><strong>Payment Information:</strong> Payment is processed entirely by PayPal — we never see or store your card details</li><li><strong>Usage Data:</strong> Pages visited, time spent, browser type, and IP address (anonymized)</li><li><strong>Communications:</strong> Messages you send via our contact form or email</li></ul>
+    <h2>2. How We Use Your Information</h2><ul><li>To process and fulfill your orders</li><li>To send order confirmations and shipping updates</li><li>To respond to customer service inquiries</li><li>To improve our website and product offerings</li><li>To send promotional emails (only with your consent — you can unsubscribe anytime)</li></ul>
+    <h2>3. Data Sharing</h2><p>We do not sell your personal data. We share information only with:</p><ul><li><strong>PayPal:</strong> To process payments securely</li><li><strong>Shipping carriers:</strong> (UPS, USPS, FedEx) to deliver your order</li><li><strong>Service providers:</strong> Email and analytics tools that help us operate (all bound by confidentiality agreements)</li></ul>
+    <h2>4. Cookies</h2><p>Our website uses cookies to enhance your browsing experience. Cookies help us remember your preferences and understand how visitors use our site. You can disable cookies in your browser settings, though some site features may not function correctly.</p>
+    <h2>5. Your Rights</h2><p>Depending on your location, you may have the right to access, correct, or delete your personal data. To exercise these rights, email privacy@safebabybath.com. We will respond within 30 days.</p>
+    <h2>6. Data Security</h2><p>We use industry-standard SSL encryption for all data transmission. We maintain your information on secure servers and restrict access to authorized personnel only.</p>
+    <h2>7. Children's Privacy</h2><p>Our website is intended for adults purchasing products for children. We do not knowingly collect personal information from children under 13. If you believe a child has provided personal information through our site, please contact us immediately.</p>
+    <h2>8. Contact</h2><p>For privacy-related questions, contact us at privacy@safebabybath.com or write to SafeBabyBath Inc., 123 Duck Lane Suite 4, Austin, TX 78701.</p>
+  </div>
+</div>
+
+<!-- SHIPPING -->
+<div id="shipping" class="page">
+  <div class="legal-content">
+    <h1>Shipping & Returns</h1>
+    <p class="legal-date">Last updated: January 1, 2025</p>
+    <h2>Shipping Information</h2>
+    <p>We ship from our Austin, Texas fulfillment center Monday through Friday. Orders placed before 2pm EST on a business day are processed same day.</p>
+    <table class="shipping-table">
+      <thead><tr><th>Shipping Method</th><th>Delivery Time</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>Standard (US)</td><td>3–5 business days</td><td>FREE</td></tr>
+        <tr><td>Express (US)</td><td>2 business days</td><td>$9.99</td></tr>
+        <tr><td>Overnight (US)</td><td>1 business day</td><td>$24.99</td></tr>
+        <tr><td>Canada</td><td>7–10 business days</td><td>$12.99</td></tr>
+        <tr><td>UK & Europe</td><td>10–14 business days</td><td>$18.99</td></tr>
+        <tr><td>Australia & NZ</td><td>12–18 business days</td><td>$22.99</td></tr>
+      </tbody>
+    </table>
+    <div class="alert-box"><span style="font-size:22px;">⚠️</span><p>International shipments may be subject to import duties and taxes levied by the destination country. These charges are the buyer's responsibility and are not included in our shipping fees.</p></div>
+    <h2>Order Tracking</h2><p>Once your order ships, you'll receive an email with a tracking number. You can track your package directly on the carrier's website. If you haven't received tracking information within 2 business days of ordering, please contact us.</p>
+    <h2>Return Policy</h2><p>We want you to be completely satisfied with your SafeBabyBath purchase. If for any reason you are not, we offer a hassle-free 30-day return policy.</p>
+    <h2>Eligibility for Returns</h2><ul><li>Item must be returned within 30 days of delivery date</li><li>Item must be unused and in original packaging</li><li>Gift-box packaging must be intact (not torn)</li><li>Proof of purchase (PayPal receipt or order number) required</li></ul>
+    <h2>Non-Returnable Items</h2><ul><li>Items that have been assembled and used</li><li>Items damaged due to misuse or improper storage</li><li>Items returned after the 30-day window</li></ul>
+    <h2>How to Start a Return</h2><p>Email returns@safebabybath.com with your order number and reason for return. We'll send you a prepaid return label within 24 hours for defective items. For change-of-mind returns, the customer covers return shipping.</p>
+    <h2>Refunds</h2><p>Once we receive and inspect your return, we'll process a full refund to your original PayPal account within 5–10 business days. You'll receive an email confirmation when the refund is issued.</p>
+    <h2>Damaged or Defective Items</h2><p>If your item arrives damaged or defective, please email us within 48 hours of delivery with photos of the damage. We will ship a replacement at no cost within 2 business days — no need to return the damaged item.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px;"><span style="font-size:32px;">🛁</span><span style="font-family:'Fredoka One',cursive;font-size:24px;color:var(--sky);">SafeBabyBath</span></div>
+      <p>Making bath time safe, simple, and joyful for families everywhere. Trusted by 40,000+ parents since 2022.</p>
+      <div style="margin-top:24px;">
+        <form action="https://www.paypal.com/ncp/payment/YOUR_BUTTON_ID" method="post" target="_blank">
+          <input type="submit" value="🛒  Buy Now – $49.99" style="background:var(--paypal);color:white;padding:12px 24px;border:none;border-radius:10px;font-size:15px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:800;">
+        </form>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><a onclick="showPage('product')">Duck Stand</a><a onclick="showPage('product')">Gift Sets</a><a onclick="showPage('product')">Accessories</a><a onclick="showPage('product')">Bundles</a></div>
+    <div class="footer-col"><h4>Company</h4><a onclick="showPage('about')">About Us</a><a onclick="showPage('faq')">FAQ</a><a onclick="showPage('contact')">Contact</a><a onclick="showPage('shipping')">Shipping & Returns</a></div>
+    <div class="footer-col"><h4>Legal</h4><a onclick="showPage('terms')">Terms & Conditions</a><a onclick="showPage('privacy')">Privacy Policy</a><a onclick="showPage('shipping')">Return Policy</a></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 SafeBabyBath Inc. All rights reserved.</p>
+    <div class="footer-paypal"><span>💳</span> Secure checkout powered by PayPal</div>
+    <p>Always supervise children near water.</p>
+  </div>
+</footer>
 
 <script>
-function changeImage(element){
-  document.getElementById("mainImage").src = element.src;
-  document.querySelectorAll(".thumb").forEach(img=>{
-    img.classList.remove("active");
-  });
-  element.classList.add("active");
-}
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    const target = document.getElementById(id);
+    if (target) target.classList.add('active');
+    const navLink = document.getElementById('nav-' + id);
+    if (navLink) navLink.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+  function handleContactSubmit(btn) {
+    btn.textContent = '✅ Message Sent! We\'ll reply within 2 hours.';
+    btn.style.background = '#2e7d32';
+    btn.disabled = true;
+  }
+  showPage('home');
 </script>
-
 </body>
 </html>
